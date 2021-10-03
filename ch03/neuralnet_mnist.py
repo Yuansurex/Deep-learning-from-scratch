@@ -33,11 +33,14 @@ def predict(network, x):
 
 
 x, t = get_data()
+print(x.shape)
 network = init_network()
 accuracy_cnt = 0
 for i in range(len(x)):
     y = predict(network, x[i])
+
     p= np.argmax(y) # 获取概率最高的元素的索引
+
     if p == t[i]:
         accuracy_cnt += 1
 

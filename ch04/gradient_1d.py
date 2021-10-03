@@ -13,10 +13,10 @@ def function_1(x):
 
 
 def tangent_line(f, x):
-    d = numerical_diff(f, x)
-    print(d)
-    y = f(x) - d*x
-    return lambda t: d*t + y
+    k = numerical_diff(f, x)
+    print(k)
+    b = f(x) - k*x #切线 y=kx+b过(x，f(x)),b = f(x) - d*x
+    return lambda t: k*t + b #返回切线方程：kx+b
      
 x = np.arange(0.0, 20.0, 0.1)
 y = function_1(x)
