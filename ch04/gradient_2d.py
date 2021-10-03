@@ -8,7 +8,7 @@ from mpl_toolkits.mplot3d import Axes3D
 def _numerical_gradient_no_batch(f, x):
     h = 1e-4 # 0.0001
     grad = np.zeros_like(x)
-    
+
     for idx in range(x.size):
         tmp_val = x[idx]
         x[idx] = float(tmp_val) + h
@@ -29,7 +29,7 @@ def numerical_gradient(f, X):
     else:
         grad = np.zeros_like(X)
         
-        for idx, x in enumerate(X):
+        for idx, x in enumerate(X): # (0, seq[0]), (1, seq[1]), (2, seq[2]), ...
             grad[idx] = _numerical_gradient_no_batch(f, x)
         
         return grad
@@ -52,15 +52,13 @@ if __name__ == '__main__':
     x0 = np.arange(-2, 2.5, 0.25)
     x1 = np.arange(-2, 2.5, 0.25)
 
-    X, Y = np.meshgrid(x0, x1) #构建平面方格
-    
-    X = X.flatten()
+    X, Y = np.meshgrid(x0, x1)  # 构建平面方格18*18=324
+    X = X.flatten() # (324,1)
     Y = Y.flatten()
 
-    grad = numerical_gradient(function_2, np.array([X, Y]))
-    
+    grad = numerical_gradient(function_2, np.array([X, Y]))    # 拼成一个数组
     plt.figure()
-    plt.quiver(X, Y, -grad[0], -grad[1],  angles="xy",color="#666666")#,headwidth=10,scale=40,color="#444444")
+    plt.quiver(X, Y, -grad[0], -grad[1],  angles="xy",color="#666666")  # headwidth=10,scale=40,color="#444444") 绘制二维矢量场图
     plt.xlim([-2, 2])
     plt.ylim([-2, 2])
     plt.xlabel('x0')
